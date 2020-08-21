@@ -1,0 +1,38 @@
+{
+    "bulk_action_in_progress": false,
+    "recording_mode": "snapshot",
+    "recording_count": 31,
+    "recording_started_once_or_more": true,
+    "recordings": [
+        {
+            "action_count": 5,
+            "autotag_names": [],
+            "browser": "Chrome",
+            "comment_count": 0,
+            "commented_by": [],
+            "country_code": "CN",
+            "created_epoch_time": 1596177333,
+            "device": "desktop",
+            "duration": 130230,
+            "exit_page_url": "https://www.nexttoship.com/PA/SEF200716603/1323",
+            "favourite": false,
+            "id": 3772374780,
+            "index": 338,
+            "os": "Windows",
+            "landing_page_url": "https://www.nexttoship.com/PA/SEF200716603/1323",
+            "page_count": 2,
+            "public_url": "https://insights.hotjar.com/r?site=1478981&recording=3772374780&token=793d118a69a3af6d81807ad722c44ebc",
+            "protocol": "https",
+            "referrer": "http://doc.cntrans.cn/dc/",
+            "shared": false,
+            "tag_names": [],
+            "url": "https://insights.hotjar.com/r?site=1478981&recording=3772374780",
+            "visitor_uuid": "a196eb68",
+            "window_size": [
+                1440,
+                740
+            ],
+            "watched": false
+        }
+    ]
+}
