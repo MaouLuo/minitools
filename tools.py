@@ -5,11 +5,16 @@ import datetime
 import configparser 
 import requests
 import json
+import time
+import hmac
+import hashlib
+import base64
+import urllib.parse
 
 
 # 配置文件读取
 # item为所用api类型，path为配置文件所在路径, name为密钥字段
-def r_conf(item, path='./config.ini', name='token'):
+def r_conf(item, path='D:\\code\\config.ini', name='token'):
     config = configparser.ConfigParser()
     config.read(path, encoding='utf-8')
     cont = config.get(item, name)
@@ -106,3 +111,39 @@ class ServerJ:
             except:
                 print(resp.text)
         return True
+
+# 通过钉钉群机器人发送消息，该群为免费电话内部个人群
+class Dingding():
+    def __init__(self, *path):
+        if path:
+            self.secret = r_conf(item='dingding', path=path[0], name='secret')
+            
+        else:            
+            self.secret = r_conf(item='dingding', name='secret')
+        
+        self.headers = {
+            'Content-Type': 'application/json',
+        }
+
+    def get_url(self):
+        timestamp = str(round(time.time() * 1000))
+        self.secret = 'SECd815f97f9b5f3ddf04eb6f85ab7bfd3f64cb992968d7a0690d511ba2bc6d3ba5'
+        secret_enc = self.secret.encode('utf-8')
+        string_to_sign = '{}\n{}'.format(timestamp, self.secret)
+        string_to_sign_enc = string_to_sign.encode('utf-8')
+        hmac_code = hmac.new(secret_enc, string_to_sign_enc, digestmod=hashlib.sha256).digest()
+        sign = urllib.parse.quote_plus(base64.b64encode(hmac_code))
+        url = 'https://oapi.dingtalk.com/robot/send?access_token=796719934a205fb55623f2887305dcbaf31414e661117eb28f4bd140597a27b7&timestamp={}&sign={}'.format(timestamp, sign)
+        #print(timestamp)
+        #print(sign)
+        return url
+
+    def send_text(self, cont):
+        data = {
+            "msgtype":"text",
+            "text":{
+                "content": cont#"吃饭时间到啦~\n当前天气{}，气温{}".format(wea['wtNm'], wea['wtTemp']),
+                #"mentioned_list":["@all"]
+                }
+        }
+        requests.post(self.get_url(), headers=self.headers, data=json.dumps(data))
