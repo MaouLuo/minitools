@@ -155,10 +155,12 @@ e.g.
 for cur_num in range(amount+1):
     bar(amount, cur_num)    
 '''
-def bar(amount, num):
+def bar(oamount, onum):
+    amount = 100
+    num = int(onum * (100/oamount))
     jd = '\r %2d%% [%s%s]'
     #for i in range(amount + 1):
     a = '#' * num
-    b = ' ' * (amount - 1 - num)
-    c = (num / (amount - 1)) * 100
+    b = ' ' * (amount - num)
+    c = (num / (amount)) * 100
     print(jd % (c, a, b), end='')
