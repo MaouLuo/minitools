@@ -159,6 +159,6 @@ def bar(amount, num):
     jd = '\r %2d%% [%s%s]'
     #for i in range(amount + 1):
     a = '#' * num
-    b = ' ' * (amount - num)
-    c = (num / amount) * 100
+    b = ' ' * (amount - 1 - num)
+    c = (num / (amount - 1)) * 100
     print(jd % (c, a, b), end='')
