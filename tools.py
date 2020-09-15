@@ -152,15 +152,38 @@ class Dingding():
 # 进度条打印
 '''
 e.g.
-for cur_num in range(amount+1):
-    bar(amount, cur_num)    
+bar = Bar(total)
+for _ in range(total):
+    do
+    bar.run() 
+bar.end()  
 '''
-def bar(oamount, onum):
-    amount = 100
-    num = int(onum * (100/oamount))
-    jd = '\r %2d%% [%s%s]'
-    #for i in range(amount + 1):
-    a = '#' * num
-    b = ' ' * (amount - num)
-    c = (num / (amount)) * 100
-    print(jd % (c, a, b), end='')
+class Bar():
+    def __init__(self, total):
+        self.total = total
+        self.num = 1
+        self.st = 0
+        self.et = 0
+
+    def run(self):
+        if self.st == 0:
+            self.st = time.time()
+        num = int(self.num * (100/self.total))
+        jd = '\r %2d%% [%s%s]'
+        a = '#' * num
+        b = ' ' * (100 - num)
+        c = (num / (100)) * 100
+        print(jd % (c, a, b), end='')
+        self.num += 1
+        return True
+
+    def end(self):
+        self.et = time.time()
+        duration = (self.et - self.st)
+        if duration < 60:
+            print('\nIt take time {:.2f} sec'.format(duration))
+        elif 60 <= duration < 3600:
+            print('\nIt take time {:.2f} min'.format(duration/60))
+        else:
+            print('\nIt take time {:.2f} hour'.format(duration/3600))
+        return True
